@@ -1,7 +1,17 @@
 import { userRepository } from "../repositories/userRepository.js";
 
 class UserService {
-  // TODO: Implement methods to work with user
+  getAll() {
+    return userRepository.getAll();
+  }
+
+  getById(id) {
+    const user = userRepository.getOne({ id });
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
+  }
 
   search(search) {
     const item = userRepository.getOne(search);
@@ -9,6 +19,26 @@ class UserService {
       return null;
     }
     return item;
+  }
+
+  create(data) {
+    return userRepository.create(data);
+  }
+
+  update(id, updateData) {
+    const user = userRepository.getOne({ id });
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return userRepository.update(id, updateData);
+  }
+
+  delete(id) {
+    const user = userRepository.getOne({ id });
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return userRepository.delete(id);
   }
 }
 
